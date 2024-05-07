@@ -41,55 +41,51 @@ function renderEverything() {
 }
 
 function renderPepperoni() {
-  document.querySelectorAll('.pep').forEach((onePep) => {
-    if (state.pepperoni) {
-      onePep.style.visibility = 'visible';
-    } else {
-      onePep.style.visibility = 'hidden';
-    }
-  });
+  document
+    .querySelectorAll('.pep')
+    .forEach((onePep) =>
+      state.pepperoni
+        ? (onePep.style.visibility = 'visible')
+        : (onePep.style.visibility = 'hidden')
+    );
 }
 
 function renderMushrooms() {
   // Iteration 1: set the visibility of `<section class="mushroom">`
-  document.querySelectorAll('.mushroom').forEach((onePep) => {
-    if (state.mushrooms) {
-      onePep.style.visibility = 'visible';
-    } else {
-      onePep.style.visibility = 'hidden';
-    }
-  });
+  document
+    .querySelectorAll('.mushroom')
+    .forEach((oneMush) =>
+      state.mushrooms
+        ? (oneMush.style.visibility = 'visible')
+        : (oneMush.style.visibility = 'hidden')
+    );
 }
 
 function renderGreenPeppers() {
   // Iteration 1: set the visibility of `<section class="green-pepper">`
-  document.querySelectorAll('.green-pepper').forEach((onePep) => {
-    if (state.greenPeppers) {
-      onePep.style.visibility = 'visible';
-    } else {
-      onePep.style.visibility = 'hidden';
-    }
-  });
+  document
+    .querySelectorAll('.green-pepper')
+    .forEach((oneGPep) =>
+      state.greenPeppers
+        ? (oneGPep.style.visibility = 'visible')
+        : (oneGPep.style.visibility = 'hidden')
+    );
 }
 
 function renderWhiteSauce() {
   // Iteration 2: add/remove the class "sauce-white" of `<section class="sauce">`
   const sauceElement = document.querySelector('.sauce');
-  if (state.whiteSauce) {
-    sauceElement.classList.add('sauce-white');
-  } else {
-    sauceElement.classList.remove('sauce-white');
-  }
+  state.whiteSauce
+    ? sauceElement.classList.add('sauce-white')
+    : sauceElement.classList.remove('sauce-white');
 }
 
 function renderGlutenFreeCrust() {
   // Iteration 2: add/remove the class "crust-gluten-free" of `<section class="crust">`
   const sauceElement = document.querySelector('.crust');
-  if (state.glutenFreeCrust) {
-    sauceElement.classList.add('crust-gluten-free');
-  } else {
-    sauceElement.classList.remove('crust-gluten-free');
-  }
+  state.glutenFreeCrust
+    ? sauceElement.classList.add('crust-gluten-free')
+    : sauceElement.classList.remove('crust-gluten-free');
 }
 
 function renderButtons() {
@@ -98,11 +94,9 @@ function renderButtons() {
     const ingredientButton = document.querySelector(
       `.${ingredientInfo.buttonName}`
     );
-    if (state[ingredientName]) {
-      ingredientButton.classList.add('active');
-    } else {
-      ingredientButton.classList.remove('active');
-    }
+    state[ingredientName]
+      ? ingredientButton.classList.add('active')
+      : ingredientButton.classList.remove('active');
   }
 }
 
@@ -135,11 +129,10 @@ function renderPrice() {
            ? '<li>$<span class="price">5</span> <span class="name">gluten-free crust</span></li>'
            : ''
        }`;
-  document.querySelector('.panel.price strong span').textContent = [
-    ...document.querySelectorAll('.panel.price span[class="price"]')
+  document.querySelector('.panel.price strong span').textContent = basePrice + [
+    ...document.querySelectorAll('.panel.price li span[class="price"]')
   ]
-    .map((ele) => Number(ele.textContent))
-    .reduce((acc, value) => acc + value, basePrice);
+    .reduce((acc, ele) => acc + Number(ele.textContent), 0);
 }
 
 renderEverything();
