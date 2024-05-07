@@ -94,7 +94,7 @@ function renderButtons() {
   for (const [ingredientName, ingredientInfo] of Object.entries(ingredients)) {
     const ingredientButtonsList = document.querySelectorAll('.btn');
     for (let ingredientButton of [...ingredientButtonsList]) {
-      if (ingredientButton.innerText !== ingredientInfo.name) {
+      if (ingredientButton.innerText.toLowerCase().trim() !== ingredientInfo.name.toLowerCase().trim()) {
         continue;
       }
       if (
