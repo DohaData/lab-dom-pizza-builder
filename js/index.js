@@ -3,11 +3,11 @@
 // Constants
 const basePrice = 10;
 const ingredients = {
-  pepperoni: { name: 'pepperoni', price: 1 },
-  mushrooms: { name: 'Mushrooms', price: 1 },
-  greenPeppers: { name: 'Green Peppers', price: 1 },
-  whiteSauce: { name: 'White sauce', price: 3 },
-  glutenFreeCrust: { name: 'Gluten-free crust', price: 5 }
+  pepperoni: { name: 'pepperoni', price: 1, buttonName: 'btn-pepperoni'},
+  mushrooms: { name: 'Mushrooms', price: 1, buttonName: 'btn-mushrooms'},
+  greenPeppers: { name: 'Green peppers', price: 1, buttonName: 'btn-green-peppers'},
+  whiteSauce: { name: 'White sauce', price: 3, buttonName: 'btn-sauce'},
+  glutenFreeCrust: { name: 'Gluten-free crust', price: 5, buttonName: 'btn-crust'}
 };
 
 // Initial value of the state (the state values can change over time)
@@ -82,12 +82,12 @@ function renderGlutenFreeCrust() {
   const sauceElement = document.querySelector('.crust');
   if (
     state.glutenFreeCrust &&
-    !sauceElement.className.includes('crust-gluten-free')
+    !sauceElement.classList.contains('crust-gluten-free')
   ) {
     sauceElement.classList.add('crust-gluten-free');
   } else if (
     !state.glutenFreeCrust &&
-    sauceElement.className.includes('crust-gluten-free')
+    sauceElement.classList.contains('crust-gluten-free')
   ) {
     sauceElement.classList.remove('crust-gluten-free');
   }
@@ -96,25 +96,17 @@ function renderGlutenFreeCrust() {
 function renderButtons() {
   // Iteration 3: add/remove the class "active" of each `<button class="btn">`
   for (const [ingredientName, ingredientInfo] of Object.entries(ingredients)) {
-    const ingredientButtonsList = document.querySelectorAll('.btn');
-    for (let ingredientButton of [...ingredientButtonsList]) {
-      if (
-        ingredientButton.textContent.toLowerCase().trim() !==
-        ingredientInfo.name.toLowerCase().trim()
-      ) {
-        continue;
-      }
-      if (
-        state[ingredientName] &&
-        !ingredientButton.className.includes('active')
-      ) {
-        ingredientButton.classList.add('active');
-      } else if (
-        !state[ingredientName] &&
-        ingredientButton.className.includes('active')
-      ) {
-        ingredientButton.classList.remove('active');
-      }
+    const ingredientButton = document.querySelector(`.${ingredientInfo.buttonName}`);
+    if (
+      state[ingredientName] &&
+      !ingredientButton.classList.contains('active')
+    ) {
+      ingredientButton.classList.add('active');
+    } else if (
+      !state[ingredientName] &&
+      ingredientButton.classList.contains('active')
+    ) {
+      ingredientButton.classList.remove('active');
     }
   }
 }
