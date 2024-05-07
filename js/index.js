@@ -76,7 +76,7 @@ function renderWhiteSauce() {
   // Iteration 2: add/remove the class "sauce-white" of `<section class="sauce">`
   const sauceElement = document.querySelector('.sauce');
   if (state.whiteSauce) {
-    sauceElement.classList.toggle('sauce-white');
+    sauceElement.classList.add('sauce-white');
   } else {
     sauceElement.classList.remove('sauce-white');
   }
@@ -86,7 +86,7 @@ function renderGlutenFreeCrust() {
   // Iteration 2: add/remove the class "crust-gluten-free" of `<section class="crust">`
   const sauceElement = document.querySelector('.crust');
   if (state.glutenFreeCrust) {
-    sauceElement.classList.toggle('crust-gluten-free');
+    sauceElement.classList.add('crust-gluten-free');
   } else {
     sauceElement.classList.remove('crust-gluten-free');
   }
@@ -99,7 +99,7 @@ function renderButtons() {
       `.${ingredientInfo.buttonName}`
     );
     if (state[ingredientName]) {
-      ingredientButton.classList.toggle('active');
+      ingredientButton.classList.add('active');
     } else {
       ingredientButton.classList.remove('active');
     }
