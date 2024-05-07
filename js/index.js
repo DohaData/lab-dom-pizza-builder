@@ -67,9 +67,11 @@ function renderGreenPeppers() {
 function renderWhiteSauce() {
   // Iteration 2: add/remove the class "sauce-white" of `<section class="sauce">`
   const sauceElement = document.querySelector('.sauce');
-  if (state.whiteSauce) {
+  if (state.whiteSauce &&
+    !sauceElement.className.includes('sauce-white')) {
     sauceElement.classList.add('sauce-white');
-  } else {
+  } else if (!state.whiteSauce &&
+    sauceElement.className.includes('sauce-white')) {
     sauceElement.classList.remove('sauce-white');
   }
 }
@@ -82,7 +84,7 @@ function renderGlutenFreeCrust() {
     !sauceElement.className.includes('crust-gluten-free')
   ) {
     sauceElement.classList.add('crust-gluten-free');
-  } else if (sauceElement.className.includes('crust-gluten-free')) {
+  } else if (!state.glutenFreeCrust && sauceElement.className.includes('crust-gluten-free')) {
     sauceElement.classList.remove('crust-gluten-free');
   }
 }
