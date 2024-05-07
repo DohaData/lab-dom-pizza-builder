@@ -3,11 +3,19 @@
 // Constants
 const basePrice = 10;
 const ingredients = {
-  pepperoni: { name: 'pepperoni', price: 1, buttonName: 'btn-pepperoni'},
-  mushrooms: { name: 'Mushrooms', price: 1, buttonName: 'btn-mushrooms'},
-  greenPeppers: { name: 'Green peppers', price: 1, buttonName: 'btn-green-peppers'},
-  whiteSauce: { name: 'White sauce', price: 3, buttonName: 'btn-sauce'},
-  glutenFreeCrust: { name: 'Gluten-free crust', price: 5, buttonName: 'btn-crust'}
+  pepperoni: { name: 'pepperoni', price: 1, buttonName: 'btn-pepperoni' },
+  mushrooms: { name: 'Mushrooms', price: 1, buttonName: 'btn-mushrooms' },
+  greenPeppers: {
+    name: 'Green peppers',
+    price: 1,
+    buttonName: 'btn-green-peppers'
+  },
+  whiteSauce: { name: 'White sauce', price: 3, buttonName: 'btn-sauce' },
+  glutenFreeCrust: {
+    name: 'Gluten-free crust',
+    price: 5,
+    buttonName: 'btn-crust'
+  }
 };
 
 // Initial value of the state (the state values can change over time)
@@ -67,12 +75,9 @@ function renderGreenPeppers() {
 function renderWhiteSauce() {
   // Iteration 2: add/remove the class "sauce-white" of `<section class="sauce">`
   const sauceElement = document.querySelector('.sauce');
-  if (state.whiteSauce && !sauceElement.className.includes('sauce-white')) {
+  if (state.whiteSauce) {
     sauceElement.classList.add('sauce-white');
-  } else if (
-    !state.whiteSauce &&
-    sauceElement.className.includes('sauce-white')
-  ) {
+  } else {
     sauceElement.classList.remove('sauce-white');
   }
 }
@@ -80,15 +85,9 @@ function renderWhiteSauce() {
 function renderGlutenFreeCrust() {
   // Iteration 2: add/remove the class "crust-gluten-free" of `<section class="crust">`
   const sauceElement = document.querySelector('.crust');
-  if (
-    state.glutenFreeCrust &&
-    !sauceElement.classList.contains('crust-gluten-free')
-  ) {
+  if (state.glutenFreeCrust) {
     sauceElement.classList.add('crust-gluten-free');
-  } else if (
-    !state.glutenFreeCrust &&
-    sauceElement.classList.contains('crust-gluten-free')
-  ) {
+  } else {
     sauceElement.classList.remove('crust-gluten-free');
   }
 }
@@ -96,16 +95,12 @@ function renderGlutenFreeCrust() {
 function renderButtons() {
   // Iteration 3: add/remove the class "active" of each `<button class="btn">`
   for (const [ingredientName, ingredientInfo] of Object.entries(ingredients)) {
-    const ingredientButton = document.querySelector(`.${ingredientInfo.buttonName}`);
-    if (
-      state[ingredientName] &&
-      !ingredientButton.classList.contains('active')
-    ) {
+    const ingredientButton = document.querySelector(
+      `.${ingredientInfo.buttonName}`
+    );
+    if (state[ingredientName]) {
       ingredientButton.classList.add('active');
-    } else if (
-      !state[ingredientName] &&
-      ingredientButton.classList.contains('active')
-    ) {
+    } else {
       ingredientButton.classList.remove('active');
     }
   }
@@ -115,7 +110,7 @@ function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
 
   const ingredientsPriceList = document.querySelector('.panel.price ul');
-  ingredientsPriceList.innerHTML = `<ul>${
+  ingredientsPriceList.innerHTML = `${
     state.pepperoni
       ? '<li>$<span class="price">1</span> <span class="name">pepperoni</span></li>'
       : ''
@@ -139,8 +134,7 @@ function renderPrice() {
          state.glutenFreeCrust
            ? '<li>$<span class="price">5</span> <span class="name">gluten-free crust</span></li>'
            : ''
-       }
-      </ul>`;
+       }`;
   document.querySelector('.panel.price strong span').textContent = [
     ...document.querySelectorAll('.panel.price span[class="price"]')
   ]
