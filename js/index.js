@@ -145,7 +145,7 @@ function renderPrice() {
     ...document.querySelectorAll('.panel.price span[class="price"]')
   ]
     .map((ele) => Number(ele.textContent))
-    .reduce((acc, value) => acc + value, 0);
+    .reduce((acc, value) => acc + value, basePrice);
 }
 
 renderEverything();
