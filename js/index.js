@@ -67,11 +67,12 @@ function renderGreenPeppers() {
 function renderWhiteSauce() {
   // Iteration 2: add/remove the class "sauce-white" of `<section class="sauce">`
   const sauceElement = document.querySelector('.sauce');
-  if (state.whiteSauce &&
-    !sauceElement.className.includes('sauce-white')) {
+  if (state.whiteSauce && !sauceElement.className.includes('sauce-white')) {
     sauceElement.classList.add('sauce-white');
-  } else if (!state.whiteSauce &&
-    sauceElement.className.includes('sauce-white')) {
+  } else if (
+    !state.whiteSauce &&
+    sauceElement.className.includes('sauce-white')
+  ) {
     sauceElement.classList.remove('sauce-white');
   }
 }
@@ -84,7 +85,10 @@ function renderGlutenFreeCrust() {
     !sauceElement.className.includes('crust-gluten-free')
   ) {
     sauceElement.classList.add('crust-gluten-free');
-  } else if (!state.glutenFreeCrust && sauceElement.className.includes('crust-gluten-free')) {
+  } else if (
+    !state.glutenFreeCrust &&
+    sauceElement.className.includes('crust-gluten-free')
+  ) {
     sauceElement.classList.remove('crust-gluten-free');
   }
 }
@@ -94,7 +98,10 @@ function renderButtons() {
   for (const [ingredientName, ingredientInfo] of Object.entries(ingredients)) {
     const ingredientButtonsList = document.querySelectorAll('.btn');
     for (let ingredientButton of [...ingredientButtonsList]) {
-      if (ingredientButton.innerText.toLowerCase().trim() !== ingredientInfo.name.toLowerCase().trim()) {
+      if (
+        ingredientButton.textContent.toLowerCase().trim() !==
+        ingredientInfo.name.toLowerCase().trim()
+      ) {
         continue;
       }
       if (
@@ -114,27 +121,39 @@ function renderButtons() {
 
 function renderPrice() {
   // Iteration 4: change the HTML of `<aside class="panel price">`
-  let totalPizzaPrice = basePrice;
-  for (const [ingredientName, ingredientInfo] of Object.entries(ingredients)) {
-    const ingredientsPriceList = document.querySelectorAll('.panel.price li');
-    for (let ingredientPriceElement of [...ingredientsPriceList]) {
-      if (
-        ingredientPriceElement.querySelector('.name').innerText !=
-        ingredientInfo.name.toLowerCase()
-      ) {
-        continue;
-      }
-      if (state[ingredientName]) {
-        ingredientPriceElement.querySelector('.price').innerText =
-          ingredientInfo.price;
-        totalPizzaPrice += ingredientInfo.price;
-      } else {
-        ingredientPriceElement.querySelector('.price').innerText = 0;
-      }
-    }
+
+  const ingredientsPriceList = document.querySelector('.panel.price ul');
+  ingredientsPriceList.innerHTML = `<ul>${
+    state.pepperoni
+      ? '<li>$<span class="price">1</span> <span class="name">pepperoni</span></li>'
+      : ''
   }
-  document.querySelector('.panel.price strong span').innerText =
-    totalPizzaPrice;
+        ${
+          state.mushrooms
+            ? '<li>$<span class="price">1</span> <span class="name">mushrooms</span></li>'
+            : ''
+        }
+       ${
+         state.greenPeppers
+           ? '<li>$<span class="price">1</span> <span class="name">green peppers</span></li>'
+           : ''
+       }
+        ${
+          state.whiteSauce
+            ? '<li>$<span class="price">3</span> <span class="name">white sauce</span></li>'
+            : ''
+        }
+       ${
+         state.glutenFreeCrust
+           ? '<li>$<span class="price">5</span> <span class="name">gluten-free crust</span></li>'
+           : ''
+       }
+      </ul>`;
+  document.querySelector('.panel.price strong span').textContent = [
+    ...document.querySelectorAll('.panel.price span[class="price"]')
+  ]
+    .map((ele) => Number(ele.textContent))
+    .reduce((acc, value) => acc + value, 0);
 }
 
 renderEverything();
